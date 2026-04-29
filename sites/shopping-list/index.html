@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Список покупок</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --accent-color: #4caf50;
+            --bought-color: #888;
+            --border-color: #eee;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 20px;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        p.hint {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        li:active {
+            background-color: #f9f9f9;
+        }
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .bought .checkbox {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        .bought .checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .item-text {
+            font-size: 1.1rem;
+        }
+        .bought .item-text {
+            text-decoration: line-through;
+            color: var(--bought-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Список покупок</h1>
+        <p class="hint">Нажимайте на товары, чтобы отмечать купленными.</p>
+        <ul id="shopping-list">
+            <li data-item="молоко"><div class="checkbox"></div><span class="item-text">молоко</span></li>
+            <li data-item="хлеб"><div class="checkbox"></div><span class="item-text">хлеб</span></li>
+            <li data-item="сыр"><div class="checkbox"></div><span class="item-text">сыр</span></li>
+            <li data-item="яйца"><div class="checkbox"></div><span class="item-text">яйца</span></li>
+            <li data-item="бананы"><div class="checkbox"></div><span class="item-text">бананы</span></li>
+            <li data-item="курица"><div class="checkbox"></div><span class="item-text">курица</span></li>
+            <li data-item="помидоры"><div class="checkbox"></div><span class="item-text">помидоры</span></li>
+        </ul>
+    </div>
+
+    <script>
+        const list = document.getElementById('shopping-list');
+        const storageKey = 'shopping-list-state';
+
+        // Load state
+        const savedState = JSON.parse(localStorage.getItem(storageKey) || '{}');
+
+        // Apply saved state
+        document.querySelectorAll('li').forEach(li => {
+            const itemName = li.getAttribute('data-item');
+            if (savedState[itemName]) {
+                li.classList.add('bought');
+            }
+
+            // Click handler
+            li.addEventListener('click', () => {
+                li.classList.toggle('bought');
+                const isBought = li.classList.contains('bought');
+                
+                // Update state
+                const currentState = JSON.parse(localStorage.getItem(storageKey) || '{}');
+                currentState[itemName] = isBought;
+                localStorage.setItem(storageKey, JSON.stringify(currentState));
+            });
+        });
+    </script>
+</body>
+</html>
