@@ -66,15 +66,33 @@
             padding: 10px 0;
             border-bottom: 1px dashed #ccc;
         }
+        .hero-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
         .svg-illustration {
             width: 100%;
             height: 200px;
-            background-color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
             border-radius: 12px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .svg-illustration::before {
+            content: "";
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            top: -25%;
+            left: -25%;
         }
         .footer {
             text-align: center;
@@ -100,6 +118,7 @@
 
     <div class="container">
         <div class="card">
+            <img src="https://www.goworldtravel.com/wp-content/uploads/2026/03/Boats-in-front-of-a-temple-in-Bangkok-Thailand.-Photo-by-Evan-Krause-Unsplash-768x512.jpg" alt="Bangkok Temples" class="hero-image">
             <h2>🌦 Прогноз на начало мая 2026</h2>
             <p>Жаркий сезон переходит в сезон дождей. Ожидаются кратковременные ливни, в основном во второй половине дня.</p>
             <div class="weather-grid">
@@ -124,11 +143,16 @@
         <div class="card">
             <div class="svg-illustration">
                 <svg width="150" height="150" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 80L50 20L90 80H10Z" fill="#d4a373"/>
-                    <rect x="40" y="60" width="20" height="20" fill="#333d29"/>
-                    <circle cx="50" cy="40" r="5" fill="#fefae0"/>
+                    <!-- Храм -->
+                    <path d="M20 80L50 10L80 80H20Z" fill="#d4a373"/>
+                    <path d="M35 80V50H65V80H35Z" fill="#333d29"/>
+                    <!-- Крыши -->
+                    <path d="M15 55L50 15L85 55H15Z" fill="#bc6c25" opacity="0.8"/>
+                    <!-- Солнце -->
+                    <circle cx="80" cy="20" r="8" fill="#fefae0"/>
                 </svg>
             </div>
+            <img src="https://theordinarykatalog.com/wp-content/uploads/2023/10/2023-Aug-Wat-Arun-Temple-Bangkok-Pinterest.png" alt="Wat Arun" class="hero-image" style="height: 400px; object-position: center top;">
             <h2>🗺 Маршрут на 2 дня</h2>
             
             <div class="itinerary-day">
@@ -157,6 +181,7 @@
         </div>
 
         <div class="card">
+            <img src="https://img.freepik.com/free-photo/enjoying-street-food-fest_23-2151543823.jpg?semt=ais_hybrid&w=740&q=80" alt="Street Food" class="hero-image">
             <h2>🍽 Где поесть паре?</h2>
             <p><span class="tag">Романтика</span> <b>Le Normandie</b> — панорамный вид на реку.</p>
             <p><span class="tag">Традиции</span> <b>Nahm</b> — высокая тайская кухня.</p>
