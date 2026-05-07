@@ -150,6 +150,16 @@
         const list = document.getElementById('shopping-list');
         const storageKey = 'shopping-list-state';
 
+        function sortList() {
+            const items = Array.from(list.children);
+            items.sort((a, b) => {
+                const aBought = a.classList.contains('bought');
+                const bBought = b.classList.contains('bought');
+                return aBought - bBought; 
+            });
+            items.forEach(item => list.appendChild(item));
+        }
+
         // Load state
         const savedState = JSON.parse(localStorage.getItem(storageKey) || '{}');
 
@@ -169,8 +179,13 @@
                 const currentState = JSON.parse(localStorage.getItem(storageKey) || '{}');
                 currentState[itemName] = isBought;
                 localStorage.setItem(storageKey, JSON.stringify(currentState));
+
+                sortList();
             });
         });
+
+        // Initial sort
+        sortList();
     </script>
 </body>
 </html>
