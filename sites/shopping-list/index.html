@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
     <title>Список покупок</title>
     <style>
         :root {
@@ -149,6 +152,18 @@
     <script>
         const list = document.getElementById('shopping-list');
         const storageKey = 'shopping-list-state';
+
+        // Авто-обновление при возврате на вкладку
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                // Если страница была скрыта больше 30 секунд, обновляем
+                const lastLoad = window.lastLoadTime || 0;
+                if (Date.now() - lastLoad > 30000) {
+                    location.reload();
+                }
+            }
+        });
+        window.lastLoadTime = Date.now();
 
         function sortList() {
             const items = Array.from(list.children);
